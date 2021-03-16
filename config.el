@@ -1,4 +1,4 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+        ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -83,10 +83,10 @@
 
 (use-package! windmove
   :bind
-  (("<f2> <right>" . windmove-right)
-   ("<f2> <left>" . windmove-left)
-   ("<f2> <up>" . windmove-up)
-   ("<f2> <down>" . windmove-down)
+  (("C-x <right>" . windmove-right)
+   ("C-x <left>" . windmove-left)
+   ("C-x <up>" . windmove-up)
+   ("C-x <down>" . windmove-down)
    ))
 
 (map! "s-k" #'kill-buffer
@@ -111,3 +111,23 @@
 
 ;; set "Yes" or "No" interactive answers to "y" or "n"
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; Iterate through CamelCase words
+(global-subword-mode 1)
+
+;; So I don't feel like something is wrong with the file itself :sweat_smile:
+(custom-set-faces!
+  '(doom-modeline-buffer-modified :foreground "orange"))
+
+;; Save entried and make it show faster, too slow before and made me feel like
+;; company was broken :joy:
+(after! company
+  (setq company-idle-delay 0.25
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t))
+
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+;; Because I stil never know wtf I'm doing in emacs
+(setq which-key-idle-delay 0.25)

@@ -51,3 +51,4 @@
 
 (package! simpleclip)
 (package! ace-jump-mode)
+(package! mermaid-mode)
