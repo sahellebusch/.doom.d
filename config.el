@@ -24,7 +24,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord-light
+      )
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -37,7 +38,7 @@
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for confi guring packages
+;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', relative to
 ;;   this file. Emacs searches the `load-path' when you load packages with
@@ -52,8 +53,13 @@
 ;; they are implemented.
 
 ;; Node versions must be set so tsserver works.
-(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/")))
-(setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/tsserver")
+(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/node")))
+(setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
+(after! +lsp (setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/tsserver"))
+(setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
+
+
+;; (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
 
 (use-package!
   projectile
@@ -70,23 +76,23 @@
             (add-to-list 'projectile-globally-ignored-directories "vendor"))
   :config (projectile-global-mode))
 
-(use-package! helm
-  :delight
-  :bind (("M-x" . helm-M-x)
-         ("C-x b" . helm-mini)
-         ("M-y" . helm-show-kill-ring)
-         ("C-x C-f" . helm-find-files)
-         ("C-c o" . helm-projectile-switch-project)
-         ("M-s M-p" . helm-projectile-ag)
-         ("C-," . helm-mini))
-  :config (helm-mode 1));;
+;; (use-package! helm
+;;   :delight
+;;   :bind (("M-x" . helm-M-x)
+;;          ("C-x b" . helm-mini)
+;;          ("M-y" . helm-show-kill-ring)
+;;          ("C-x C-f" . helm-find-files)
+;;          ("C-c o" . helm-projectile-switch-project)
+;;          ("M-s M-p" . helm-projectile-ag)
+;;          ("C-," . helm-mini))
+;;   :config (helm-mode 1));;
 
 (use-package! windmove
   :bind
-  (("C-x <right>" . windmove-right)
-   ("C-x <left>" . windmove-left)
-   ("C-x <up>" . windmove-up)
-   ("C-x <down>" . windmove-down)
+  (("C-x l" . windmove-right)
+   ("C-x j" . windmove-left)
+   ("C-x i" . windmove-up)
+   ("C-x k" . windmove-down)
    ))
 
 (map! "s-k" #'kill-buffer
@@ -129,5 +135,5 @@
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
 
-;; Because I stil never know wtf I'm doing in emacs
-(setq which-key-idle-delay 0.25)
+;; Okay - I can slow this shit down now.
+(setq which-key-idle-delay 0.75)
