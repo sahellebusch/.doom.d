@@ -53,9 +53,9 @@
 ;; they are implemented.
 
 ;; Node versions must be set so tsserver works.
-(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/node")))
-(setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
-(after! +lsp (setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.15.1/bin/tsserver"))
+(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/node")))
+(setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/tsserver")
+(after! +lsp (setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/tsserver"))
 (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
 
 
