@@ -52,3 +52,7 @@
 (package! simpleclip)
 (package! ace-jump-mode)
 (package! mermaid-mode)
+(package! prettier-js)
+(setq rust-format-on-save t)
+(add-hook 'rust-mode-hook
+          (lambda () (prettify-symbols-mode)))

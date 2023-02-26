@@ -53,9 +53,9 @@
 ;; they are implemented.
 
 ;; Node versions must be set so tsserver works.
-(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/node")))
-(setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/tsserver")
-(after! +lsp (setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v14.17.5/bin/tsserver"))
+(setq exec-path (append exec-path '("/Users/sean.hellebusch/.nvm/versions/node/v16.15.0/bin/node")))
+(setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v16.15.0/bin/tsserver")
+(after! +lsp (setq tide-tsserver-executable "/Users/sean.hellebusch/.nvm/versions/node/v16.15.0/bin/tsserver"))
 (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
 
 
@@ -137,3 +137,25 @@
 
 ;; Okay - I can slow this shit down now.
 (setq which-key-idle-delay 0.75)
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+;; not playing well with prettier for some reason
+;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook 'prettier-js-mode)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
